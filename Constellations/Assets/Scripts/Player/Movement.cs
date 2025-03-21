@@ -46,10 +46,12 @@ public class Movement : MonoBehaviour
         if (sprinting){walking = false;}
 
         if (input_delta.x > 0f){
-            sr.flipX = false;
+            transform.localScale = new Vector3(1,1,1);
+            //sr.flipX = false;
         }
         if (input_delta.x < 0f){
-            sr.flipX = true;
+            transform.localScale = new Vector3(-1,1,1);
+            //sr.flipX = true;
         }
         tick += Time.deltaTime;
         SelectSprite();

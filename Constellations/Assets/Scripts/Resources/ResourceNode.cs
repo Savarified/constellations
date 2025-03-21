@@ -18,6 +18,8 @@ public class ResourceNode : MonoBehaviour // phk - constellations
     [HideInInspector] public ResourceData.ResourceType type;
     [HideInInspector] public ResourceNodeData.RequiredTool requiredTool;
     [HideInInspector] public int maxHealth;
+
+    public GameObject drop;
     public int currentHealth;
 
 
@@ -44,28 +46,25 @@ public class ResourceNode : MonoBehaviour // phk - constellations
 
     void Start()
     {
-        titleText.text = title;
+        //titleText.text = title;
         healthText.text = $"{currentHealth} / {maxHealth}";
-        descriptionText.text = description;
-        requirementText.text = $"REQUIRED TOOL: {requiredTool}";
+        //descriptionText.text = description;
+        //requirementText.text = $"REQUIRED TOOL: {requiredTool}";
     }
 
-    void Update()
+    void FixedUpdate()
     {
-        
+        healthText.text = $"{currentHealth} / {maxHealth}";
     }
 
     // Placeholder functions for tool interactions
-    void TakeDamage(ResourceNodeData.RequiredTool tool, int damage)
+    void TakeDamage(string tool, int damage)
     {
-        if (tool != requiredTool)
-            return;
-
         if (currentHealth > 0)
         {
             currentHealth -= damage;
         }
-        else if (currentHealth <= 0)
+        if (currentHealth <= 0)
         {
             Deplete();
         }
@@ -73,6 +72,11 @@ public class ResourceNode : MonoBehaviour // phk - constellations
     
     void Deplete()
     {
-        Destroy(this);
+        Instantiate(drop, transform.position, transform.rotation);
+        Destroy(gameObject);
+    }
+
+    void OnMouseDown(){
+        TakeDamage("AXE", 5);
     }
 }
