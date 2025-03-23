@@ -13,8 +13,10 @@ public class Crawler : MonoBehaviour
     [Header("Movement Settings")]
     [SerializeField] private float move_speed;
     private Vector2 patrol_target;
+    private Vector2 prev_pos;
     void Awake(){
         anim = gameObject.GetComponent<Animator>();
+        prev_pos = transform.position;
     }
     void FixedUpdate(){
         float dist = Vector2.Distance(player.transform.position, transform.position);
@@ -49,6 +51,15 @@ public class Crawler : MonoBehaviour
                 Attack();
             }
         }
+
+        if(prev_pos.x > transform.position.x){
+            transform.localScale = new Vector3(-1f,1f,1f);
+        }
+        else{
+            transform.localScale = new Vector3(1f,1f,1f);
+        }
+
+        prev_pos = transform.position;
 
     }
 

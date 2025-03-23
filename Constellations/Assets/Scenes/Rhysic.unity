@@ -1412,7 +1412,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!212 &1675879168
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -2115,6 +2115,7 @@ MonoBehaviour:
   iv: {fileID: 1886980898}
   all_items: []
   closest_item: {fileID: 0}
+  current_item: {fileID: 0}
   range: 2
 --- !u!1660057539 &9223372036854775807
 SceneRoots:

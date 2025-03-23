@@ -10,7 +10,7 @@ public class PlayerShip : MonoBehaviour
     private Vector2 input_delta;
     public float ship_mass = 5f;
     public float ship_drag = 1.5f;
-    public float max_movement_speed = 5f, movement_speed_multiplier = 1.5f;
+    public float max_movement_speed = 5f, movement_speed_multiplier = 1.5f, rot_speed;
     private Vector2 ship_movement;
     
     // Stats
@@ -66,12 +66,10 @@ public class PlayerShip : MonoBehaviour
 
         if (planet_in_range)
             PromptLanding();
-    }
 
-    void FixedUpdate()
-    {
         if (can_move)
             Move();
+            Rotate();
     }
 
     // Movement: Placeholder, your take on the character movement was great so I left lots of room for improvement
@@ -79,7 +77,7 @@ public class PlayerShip : MonoBehaviour
     {
         if ( input_delta.sqrMagnitude > 0.01f)
         {
-            Vector2 direction = input_delta.normalized;
+            Vector2 direction = input_delta.y * transform.right;
 
             // Calculate acceleration
             float acceleration = (max_movement_speed / ship_mass) * movement_speed_multiplier;
@@ -98,6 +96,11 @@ public class PlayerShip : MonoBehaviour
         }
 
         transform.position += (Vector3)ship_movement * Time.deltaTime;
+    }
+
+    void Rotate()
+    {
+        transform.Rotate(0, 0, input_delta.x * rot_speed*Time.deltaTime, Space.Self);
     }
 
     // Landing

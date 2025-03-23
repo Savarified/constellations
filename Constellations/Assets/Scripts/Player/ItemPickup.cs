@@ -6,6 +6,7 @@ public class ItemPickup : MonoBehaviour
 
     public GameObject[] all_items;
     [SerializeField] private GameObject closest_item;
+    [SerializeField] private GameObject current_item;
     [SerializeField] private float range;
     void Awake()
     {
@@ -33,6 +34,13 @@ public class ItemPickup : MonoBehaviour
                 FindClosestItem();
             }
         }
+
+        if (iv.slot_status[iv.currentSlot]){
+            current_item = iv.slots[iv.currentSlot].transform.GetChild(0).gameObject;
+        }
+        else{
+            current_item = null;
+        }
     }
 
     void FindClosestItem(){
@@ -57,8 +65,11 @@ public class ItemPickup : MonoBehaviour
     }
 
     void Unequip(){
-        closest_item.transform.localPosition += new Vector3(1f, 0f,0f);
-        closest_item.transform.SetParent(null);
-        closest_item.tag = "Item"; 
+        if (current_item == null){
+            return;
+        }
+        current_item.transform.localPosition += new Vector3(1f, 0f,0f);
+        current_item.transform.SetParent(null);
+        current_item.tag = "Item"; 
     }
 }
